@@ -24,7 +24,7 @@ function createChart(ctx, speed, columns) {
 
   const chartData = {
     labels,
-    datasets: columns.slice().reverse().map((c, i) => ({
+    datasets: columns.map((c, i) => ({
       label: c.name,
       lineTension: 0,
       data: data[c.id],
@@ -50,7 +50,8 @@ function createChart(ctx, speed, columns) {
           type: 'linear',
           position: 'left',
           stacked: true,
-          ticks: {stepSize: 1}
+          ticks: {stepSize: 1},
+          reverse: true,
         },
       }
     }
