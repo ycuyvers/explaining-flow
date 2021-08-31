@@ -7,6 +7,7 @@ const Stats = require('./stats');
 const WorkerStats = require('./worker-stats');
 const Scenario = require("./scenario");
 const LineChart = require("./charts");
+const CfdChart = require("./charts-cfd");
 
 function createScenarioContainer(scenario) {
     const template = document.querySelector('#scenario-template');
@@ -83,6 +84,7 @@ const wipLimiter = LimitBoardWip();
 
 const {average} = require("./generator");
 let currentChart = undefined;
+let currentCfdChart = undefined;
 
 function run(scenario) {
     PubSub.clearAllSubscriptions();
@@ -97,6 +99,9 @@ function run(scenario) {
     wipLimiter.initialize(scenario.wipLimit)
     if(currentChart) currentChart.destroy()
     currentChart = LineChart(document.getElementById('myChart'), 2000, scenario.speed)
+
+    if(currentCfdChart) currentCfdChart.destroy();
+    currentCfdChart = CfdChart(document.getElementById('cfdChart'), 2000, scenario.speed)
 
     const board = scenario.run();
 }
